@@ -1,0 +1,17 @@
+.editBtn {
+  display: block;
+  margin: 0 auto 10px;
+  overflow: hidden;
+  text-indent: 300%;
+  width: 30px;
+  height: 30px;
+  border: none;
+}
+
+.editBtn {
+  background: url("../../assets/icon-pensil.png") no-repeat;
+}
+
+.editBtn:hover {
+  background: url("../../assets/icon-pensil-dark.png") no-repeat;
+}

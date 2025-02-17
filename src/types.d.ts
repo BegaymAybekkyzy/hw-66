@@ -3,6 +3,10 @@ export interface IMealForm {
   description: string;
   kcal: number;
 }
-export interface IMealAPI extends IMealForm {
- id: string;
+export interface IMealAPI {
+ [id: string]: IMealForm;
+}
+
+export interface IMealPost extends IMealForm {
+  id: string;
 }

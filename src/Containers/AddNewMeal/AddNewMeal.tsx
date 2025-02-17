@@ -4,7 +4,6 @@ import axiosApi from '../../axiosApi.ts';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-
 const AddNewMeal = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
