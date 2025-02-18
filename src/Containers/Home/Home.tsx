@@ -48,9 +48,12 @@ const Home = () => {
         setAllMeals(newListMeal);
 
         const newCalorieCalculation = newListMeal.reduce(
-          (acc, meal) => acc + Number(meal.calories),
-          0,
-        );
+          (acc, meal) => {
+            if (meal.date === new Date().toISOString().slice(0, 10)) {
+              return acc + Number(meal.calories);
+            }
+            return acc;
+          }, 0);
         setTotalCalorie(newCalorieCalculation);
       }
     } catch (e) {
@@ -61,6 +64,7 @@ const Home = () => {
   let content: React.ReactNode;
 
   if (loading) content = <Loader />;
+
   if (!loading) {
     if (allMeals.length > 0) {
       content = (
@@ -83,7 +87,7 @@ const Home = () => {
     <div>
       <div className="w-75 mx-auto mb-3 row row-cols-2 justify-content-sm-between">
         <span className="d-block">
-          Total kcal: <b>{totalCalorie}</b>
+          Total calories today: <b>{totalCalorie}</b>
         </span>
         <NavLink className="btn btn-primary w-auto" to="meals/add-new-meal">
           Add new meal
