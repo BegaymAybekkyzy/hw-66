@@ -100,7 +100,6 @@ const MealForm: React.FC<Props> = ({
               ))}
             </Form.Select>
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Meal description</Form.Label>
             <Form.Control

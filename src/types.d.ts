@@ -11,8 +11,3 @@ export interface IMealAPI {
 export interface IMealPost extends IMealForm {
   id: string;
 }
-
-export interface IMealCalorie {
-  id: string;
-  calories: number;
-}

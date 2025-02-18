@@ -61,6 +61,7 @@ const Home = () => {
   let content: React.ReactNode;
 
   if (loading) content = <Loader />;
+
   if (!loading) {
     if (allMeals.length > 0) {
       content = (

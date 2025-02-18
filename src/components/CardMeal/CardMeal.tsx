@@ -19,6 +19,12 @@ const CardMeal: React.FC<Props> = React.memo(
       deletePostMeal(postMeal.id);
       setLoading(false);
     };
+
+    const formatDate = (date: string) => {
+      const [year, month, day] = date.split("-");
+      return `${day}.${month}.${year}`;
+    };
+
     return (
       <Card className="mb-4">
         <div>
@@ -50,7 +56,9 @@ const CardMeal: React.FC<Props> = React.memo(
             </div>
           </Card.Body>
         </div>
-        <Card.Footer>Date: {postMeal.date}</Card.Footer>
+        <Card.Footer className="text-muted bg-body-tertiary">
+          Date: {formatDate(postMeal.date)}
+        </Card.Footer>
       </Card>
     );
   },
