@@ -19,7 +19,8 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
   const [form, setForm] = useState<IMealForm>({
     mealtime: "",
     description: "",
-    kcal: 0,
+    calories: 0,
+    date: String(new Date().toISOString().slice(0, 10))
   });
 
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,6 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
     try {
       setLoading(true);
       const res = await axiosApi<IMealForm>(`meals/${id}.json`);
-      console.log(res.data);
       setForm(res.data);
     } catch (e) {
       alert(e);
@@ -49,7 +49,8 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
       setForm({
         mealtime: "",
         description: "",
-        kcal: 0,
+        date: String(new Date().toISOString().slice(0, 10)),
+        calories: 0,
       });
     }
   };
@@ -82,6 +83,19 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
               ))}
             </Form.Select>
           </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Meal description</Form.Label>
+            <Form.Control
+              name="date"
+              value={form.date}
+              type="date"
+              required
+              disabled={isLoading}
+              onChange={onChangeInput}
+              placeholder="Meal description"
+            />
+          </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Meal description</Form.Label>
             <Form.Control
@@ -95,13 +109,14 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
             />
           </Form.Group>
           <Form.Group className="mb-3 w-25">
-            <Form.Label>Meal kcal</Form.Label>
+            <Form.Label>Meal calories</Form.Label>
             <Form.Control
-              name="kcal"
+              name="calories"
               required
               disabled={isLoading}
               type="number"
-              value={form.kcal}
+              min={0}
+              value={form.calories}
               onChange={onChangeInput}
               placeholder="kcal"
             />

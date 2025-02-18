@@ -25,20 +25,20 @@ const CardMeal: React.FC<Props> = React.memo(({postMeal, deletePostMeal}) => {
         <Card.Body>
           <div className="row row-cols-3 justify-content-sm-between align-items-center">
             <div>{postMeal.description}</div>
-            <div className="fw-bold w-auto">{postMeal.kcal} kcal</div>
+            <div className="fw-bold w-auto">{postMeal.calories} kcal</div>
 
             <div className="w-auto">
               <NavLink className="editBtn" to={`meals/edit-meal/${postMeal.id}`}/>
 
               {loading
-                ? <Button variant="dark" disabled><LoadingBtn/> Loading...</Button>
-                : <Button variant="dark" onClick={deletePost}> Delete</Button>
+                ? <Button variant="secondary" disabled><LoadingBtn/> Loading...</Button>
+                : <Button variant="secondary" onClick={deletePost}> Delete</Button>
               }
             </div>
           </div>
         </Card.Body>
       </div>
-
+    <Card.Footer>Date: {postMeal.date}</Card.Footer>
     </Card>
   );
 }, (prevProps, nextProps) => {

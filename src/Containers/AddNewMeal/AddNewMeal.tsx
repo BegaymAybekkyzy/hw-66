@@ -1,12 +1,10 @@
 import MealForm from '../../components/MealForm/MealForm.tsx';
 import { IMealForm } from '../../types';
 import axiosApi from '../../axiosApi.ts';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const AddNewMeal = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const onSubmitNewMeals = async (postMeal: IMealForm) => {
     try {
@@ -16,7 +14,6 @@ const AddNewMeal = () => {
       alert(e);
     } finally {
       setLoading(false);
-      navigate('/');
     }
   };
 
