@@ -1,7 +1,7 @@
-import MealForm from '../../components/MealForm/MealForm.tsx';
-import { IMealForm } from '../../types';
-import axiosApi from '../../axiosApi.ts';
-import { useState } from 'react';
+import MealForm from "../../components/MealForm/MealForm.tsx";
+import { IMealForm } from "../../types";
+import axiosApi from "../../axiosApi.ts";
+import { useState } from "react";
 
 const AddNewMeal = () => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ const AddNewMeal = () => {
 
   return (
     <div className="w-75 mx-auto">
-        <MealForm onSubmitFunction={onSubmitNewMeals} isLoading={loading} />
+      <MealForm onSubmitFunction={onSubmitNewMeals} isLoading={loading} />
     </div>
   );
 };

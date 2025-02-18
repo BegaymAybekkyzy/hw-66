@@ -5,7 +5,7 @@ export interface IMealForm {
   date: string;
 }
 export interface IMealAPI {
- [id: string]: IMealForm;
+  [id: string]: IMealForm;
 }
 
 export interface IMealPost extends IMealForm {

@@ -1,9 +1,9 @@
-import { NavLink } from 'react-router-dom';
-import React, { useCallback, useEffect, useState } from 'react';
-import axiosApi from '../../axiosApi.ts';
-import { IMealAPI, IMealPost } from '../../types';
-import Loader from '../../components/UI/Loader/Loader.tsx';
-import CardMeal from '../../components/CardMeal/CardMeal.tsx';
+import { NavLink } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import axiosApi from "../../axiosApi.ts";
+import { IMealAPI, IMealPost } from "../../types";
+import Loader from "../../components/UI/Loader/Loader.tsx";
+import CardMeal from "../../components/CardMeal/CardMeal.tsx";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -13,11 +13,11 @@ const Home = () => {
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await axiosApi.get<IMealAPI>('meals.json');
+      const res = await axiosApi.get<IMealAPI>("meals.json");
       if (!res.data) return;
       const mealsArray: IMealPost[] = Object.keys(res.data).map((key) => ({
         id: key,
-        ...res.data[key]
+        ...res.data[key],
       }));
       setAllMeals(mealsArray);
 
@@ -47,7 +47,10 @@ const Home = () => {
         const newListMeal = allMeals.filter((meal) => meal.id !== idMeal);
         setAllMeals(newListMeal);
 
-        const newCalorieCalculation =  newListMeal.reduce((acc, meal) => acc + Number(meal.calories), 0);
+        const newCalorieCalculation = newListMeal.reduce(
+          (acc, meal) => acc + Number(meal.calories),
+          0,
+        );
         setTotalCalorie(newCalorieCalculation);
       }
     } catch (e) {
@@ -57,7 +60,7 @@ const Home = () => {
 
   let content: React.ReactNode;
 
-  if (loading) content = <Loader/>;
+  if (loading) content = <Loader />;
   if (!loading) {
     if (allMeals.length > 0) {
       content = (
@@ -66,7 +69,8 @@ const Home = () => {
             <CardMeal
               key={meal.id}
               deletePostMeal={deletePostMeal}
-              postMeal={meal}/>
+              postMeal={meal}
+            />
           ))}
         </div>
       );
@@ -78,13 +82,15 @@ const Home = () => {
   return (
     <div>
       <div className="w-75 mx-auto mb-3 row row-cols-2 justify-content-sm-between">
-        <span className="d-block">Total kcal: <b>{totalCalorie}</b></span>
-        <NavLink className="btn btn-primary w-auto" to="meals/add-new-meal">Add new meal</NavLink>
+        <span className="d-block">
+          Total kcal: <b>{totalCalorie}</b>
+        </span>
+        <NavLink className="btn btn-primary w-auto" to="meals/add-new-meal">
+          Add new meal
+        </NavLink>
       </div>
 
-      <div>
-        {content}
-      </div>
+      <div>{content}</div>
     </div>
   );
 };

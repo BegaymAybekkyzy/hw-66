@@ -1,12 +1,12 @@
-import { Button, Form } from 'react-bootstrap';
-import * as React from 'react';
-import { useCallback, useEffect, useState } from 'react';
-import { IMealForm } from '../../types';
-import LoadingBtn from '../UI/LoadingBtn/LoadingBtn.tsx';
-import axiosApi from '../../axiosApi.ts';
-import { NavLink } from 'react-router-dom';
-import Loader from '../UI/Loader/Loader.tsx';
-import { mealTime } from '../../constants.ts';
+import { Button, Form } from "react-bootstrap";
+import * as React from "react";
+import { useCallback, useEffect, useState } from "react";
+import { IMealForm } from "../../types";
+import LoadingBtn from "../UI/LoadingBtn/LoadingBtn.tsx";
+import axiosApi from "../../axiosApi.ts";
+import { NavLink } from "react-router-dom";
+import Loader from "../UI/Loader/Loader.tsx";
+import { mealTime } from "../../constants.ts";
 
 interface Props {
   isEdit?: boolean;
@@ -15,18 +15,23 @@ interface Props {
   onSubmitFunction: (postMeal: IMealForm) => void;
 }
 
-const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading = false, id }) => {
+const MealForm: React.FC<Props> = ({
+  isEdit = false,
+  onSubmitFunction,
+  isLoading = false,
+  id,
+}) => {
   const [form, setForm] = useState<IMealForm>({
     mealtime: "",
     description: "",
     calories: 0,
-    date: String(new Date().toISOString().slice(0, 10))
+    date: String(new Date().toISOString().slice(0, 10)),
   });
 
   const [loading, setLoading] = useState(false);
 
   const fetchOneMealPost = useCallback(async () => {
-    if(!id) return;
+    if (!id) return;
     try {
       setLoading(true);
       const res = await axiosApi<IMealForm>(`meals/${id}.json`);
@@ -36,16 +41,16 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
     } finally {
       setLoading(false);
     }
-  }, [id]) ;
+  }, [id]);
 
   useEffect(() => {
-   void fetchOneMealPost();
+    void fetchOneMealPost();
   }, [id, fetchOneMealPost]);
 
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmitFunction({...form});
-    if(!isEdit) {
+    onSubmitFunction({ ...form });
+    if (!isEdit) {
       setForm({
         mealtime: "",
         description: "",
@@ -55,8 +60,11 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
     }
   };
 
-  const onChangeInput =
-    (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
+  const onChangeInput = (
+    event: React.ChangeEvent<
+      HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { value, name } = event.target;
 
     setForm((prevForm) => ({
@@ -67,19 +75,28 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
 
   return (
     <>
-      <h1 className="mb-4 text-primary-emphasis">{isEdit ? "Edit" : "Add"} meal</h1>
-      {loading ? <Loader/>
-        : <Form onSubmit={onSubmitForm}>
+      <h1 className="mb-4 text-primary-emphasis">
+        {isEdit ? "Edit" : "Add"} meal
+      </h1>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Form onSubmit={onSubmitForm}>
           <Form.Group className="mb-3">
             <Form.Select
               name="mealtime"
               required
               disabled={isLoading}
               value={form.mealtime}
-              onChange={onChangeInput}>
-              <option value="" disabled>Open this select menu</option>
+              onChange={onChangeInput}
+            >
+              <option value="" disabled>
+                Open this select menu
+              </option>
               {mealTime.map((time, index) => (
-                 <option key={index} value={time}>{time}</option>
+                <option key={index} value={time}>
+                  {time}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
@@ -121,13 +138,21 @@ const MealForm: React.FC<Props> = ({ isEdit = false, onSubmitFunction, isLoading
               placeholder="kcal"
             />
           </Form.Group>
-          { isLoading
-            ? <Button variant="primary" disabled type="submit"><LoadingBtn/> Loading...</Button>
-            : <Button variant="primary" type="submit"> Save</Button>
-          }
-          <NavLink to="/" className="btn btn-secondary ms-3">Cancel</NavLink>
+          {isLoading ? (
+            <Button variant="primary" disabled type="submit">
+              <LoadingBtn /> Loading...
+            </Button>
+          ) : (
+            <Button variant="primary" type="submit">
+              {" "}
+              Save
+            </Button>
+          )}
+          <NavLink to="/" className="btn btn-secondary ms-3">
+            Cancel
+          </NavLink>
         </Form>
-      }
+      )}
     </>
   );
 };

@@ -1,18 +1,16 @@
-import React from 'react';
-import NavBar from '../NavBar/NavBar.tsx';
-import { Container } from 'react-bootstrap';
+import React from "react";
+import NavBar from "../NavBar/NavBar.tsx";
+import { Container } from "react-bootstrap";
 
-const Layout: React.FC<React.PropsWithChildren> = ({children}) => {
+const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <>
       <header className="mb-5">
-        <NavBar/>
+        <NavBar />
       </header>
 
       <main>
-        <Container>
-          {children}
-        </Container>
+        <Container>{children}</Container>
       </main>
     </>
   );
